@@ -1,0 +1,289 @@
+#include <iostream>
+#include <string>
+#include <cstdlib>
+using namespace std;
+ int p=0;
+ int c;
+ char ch;
+void cost();
+void yangon();
+void mandalay();
+void naypyitaw();
+class booking
+{
+char busn[4],
+driver[50],
+arrival[4],depart[4],
+from[20],
+to[20],
+s[8][4][10];
+public:
+void install();
+void reservation();
+void empty();
+void show();
+void available();
+void position(int i);
+}bus[5];
+void border(char ch)
+{
+for (int i=80;i>0;i--)
+cout<<ch;
+cout<<endl;
+}
+void booking::install()
+{
+cout<<" Enter bus no: ";
+cin>>bus[p].busn;
+cout<<"\n Enter Driver's name: ";
+cin>>bus[p].driver;
+cout<<"\n Departure time: ";
+cin>>bus[p].depart;
+cout<<"\n Arrival time: ";
+cin>>bus[p].arrival;
+cout<<"\n From: \t\t\t";
+cin>>bus[p].from;
+cout<<"\n To: \t\t\t";
+cin>>bus[p].to;
+bus[p].empty();
+p++;
+}
+void booking::reservation()
+{
+int s;
+char number[2];
+top:
+cout<<" Bus no: ";
+cin>>number;
+int n;
+for(n=0;n<=p;n++)
+{
+if(strcmp(bus[n].busn,number)==0)
+break;
+}
+while(n<=p)
+{
+cout<<"\n Seat number: ";
+cin>>s;
+if (s>=33)
+{
+cout<<"\n There are only 32 seats available in this bus.";
+}
+else
+{
+if (strcmp(bus[n].s[s/4][(s%4)-1],"Empty")==0)
+{
+cout<<" Enter passanger's name: ";
+cin>>bus[n].s[s/4][(s%4)-1];
+
+break;
+}
+else
+cout<<"The seat no. is already reserved.\n";
+}
+}
+if (n>p)
+{
+cout<<" Enter correct bus number.\n";
+cout<<" Thanks for having a trip with us.\n";
+goto top;
+}
+}
+void booking::empty()
+{
+for(int i=0;i<8;i++)
+{
+for(int j=0;j<4;j++)
+{
+strcpy(bus[p].s[i][j],"Empty");
+}
+}
+}
+void booking::show()
+{
+int n;
+char number[5];
+cout<<"Enter bus no: ";
+cin>>number;
+for(n=0;n<=p;n++)
+{
+if(strcmp(bus[n].busn,number)==0)
+break;
+}
+while (n<=p)
+{
+border('*');
+cout<<" Bus no: \t"<<bus[n].busn
+<<"\n Driver: \t"<<bus[n].driver<<"\t\t\t Departure time:\t"
+<<bus[n].depart<<"\t Arrival time:\t"<<bus[n].arrival
+<<"\n From:\t\t\t"<<bus[n].from<<"\t\t To: \t"<<
+bus[n].to<<"\n";
+border('*');
+bus[0].position(n);
+int a=1;
+for (int i=0;i<8;i++)
+{
+for(int j=0;j<4;j++)
+{
+a++;
+if(strcmp(bus[n].s[i][j],"Empty")!=0)
+cout<<"\n The seat no "<<a-1<<" is reserved for "<<bus[n].s[i][j]<<" .";
+}
+}break;
+}	if(n>p)
+cout<<" Enter correct bus number.";
+}
+void booking::position(int l)
+{
+int s=0,p=0;
+for(int i=0;i<8;i++)
+{
+cout<<"\n";
+for(int j=0;j<4;j++)
+{
+s++;
+if(strcmp(bus[l].s[i][j],"Empty")==0)
+{
+cout.width(5);
+cout.fill(' ');
+cout<<s<<".";
+cout.width(10);
+cout.fill(' ');
+cout<<bus[l].s[i][j];
+p++;
+}
+else
+{
+cout.width(5);
+cout.fill(' ');
+cout<<s<<".";
+cout.width(10);
+cout.fill(' ');
+cout<<bus[l].s[i][j];
+}
+}
+}
+cout<<"\n\n There are "<<p<<" seats empty in Bus No: "<<bus[l].busn<<".";
+}
+void booking::available()
+{
+for(int n=0;n<p;n++)
+{
+border('*');
+cout<<" Bus no: \t"<<bus[n].busn<<"\n Driver: \t"<<bus[n].driver<<"\t\tArrival time:\t"<<bus[n].arrival<<"\tDeparture Time: \t"<<bus[n].depart<<"\n From: \t\t"<<bus[n].from<<"\t\t To: \t\t\t"<<bus[n].to<<"\n";
+border('*');
+border('_');
+}
+}
+int main()
+{
+int w;
+cout<<"                                        @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @  "<<endl;
+cout<<"                                       @ **     ***     ** ******  **      ******  ******  **       **  ****** @  "<<endl;
+cout<<"                                      @   **   ** **   **  **      **      **      *    *  ***     ***  **      @ "<<endl;
+cout<<"                                      @    ** **   ** **   ******  **      **      *    *  ** *   * **  ******  @   "<<endl ;
+cout<<"                                      @     ***     ***    **      **      **      *    *  **  * *  **  **      @  "<<endl;
+cout<<"                                       @     *       *     ******  ******  ******  ******  **   *   **  ****** @ "<<endl;
+cout<<"                                        @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @ @     "<<endl;
+while(1)
+{
+cout<<"\n*****************************************************"<<endl;
+cout<<"******* *******"<<endl;
+cout<<"** The Administrator **"<<endl;
+cout<<"** THE PARADISE TOUR AGENCY **"<<endl;
+cout<<"******* *******"<<endl;
+cout<<"*******************************************************"<<endl;
+
+cout<<"\t\t\t 1.Bus lines and cost\n\t\t\t 2.Install\n\t\t\t 3.Buses Available \n\t\t\t 4.Reservation \n\t\t\t 5.Show \n\t\t\t 6.Exit";
+cout<<"\n\t\t\t Enter your choice:-> ";
+cin>>w;
+switch(w)
+{
+case 1:
+cost();
+break;
+case 2:bus[p].install();
+break;
+case 3:
+bus[0].available();
+break;
+case 4:
+bus[p].reservation();
+break;
+case 5:
+bus[0].show();
+break;
+case 6:cout<<"Have a safe trip.Thanks you!!!"<<endl;
+exit(0);
+}
+}
+}
+
+
+void cost(){
+	cout<<"\n Our agency's department are located in Yangon, Mandalay and Naypyitaw.";
+     cout<<"\n 1. Yangon \n 2. Mandalay \n 3.Naypyitaw \n";
+	cout<<"\n Please choose department:";
+	cin>>c;
+	switch(c){
+		case 1:yangon();break;
+		case 2:mandalay();break;
+		case 3:naypyitaw();break;
+	}
+
+}
+
+void yangon(){
+	cout<<"\n Our agency can serve these bus lines.";
+	cout<<"\n 1. From yangon to mandalay";
+	cout<<"\n 2. From yangon to naypyitaw";
+	cout<<"\n 3. From yangon to Bagan";
+	cout<<"\n 4. From yangon to Ngwesaung";
+	cout<<"\n 5. From yangon to Taunggyi";
+	cout<<"\n\n Please choose your vacation:";
+	cin>>c;
+	switch(c){
+		case 1:cout<<"\n Money amount for your vacation is 6000Ks.";break;
+		case 2:cout<<"\n Money amount for your vacation is 8000Ks.";break;
+		case 3:cout<<"\n Money amount for your vacation is 20000Ks.";break;
+		case 4:cout<<"\n Money amount for your vacation is 13000Ks.";break;
+		case 5:cout<<"\n Money amount for your vacation is 12000Ks.";break;
+	}
+}
+
+
+void mandalay(){
+	cout<<"\n Our agency can serve these bus lines.";
+	cout<<"\n 1. From mandalay to yangon";
+	cout<<"\n 2. From mandalay to naypyitaw";
+	cout<<"\n 3. From mandalay to Bagan";
+	cout<<"\n 4. From mandalay to Ngwesaung";
+	cout<<"\n 5. From mandalay to Taunggyi";
+	cout<<"\n\nPlease choose your vacation:";
+	cin>>c;
+	switch(c){
+		case 1:cout<<"\n Money amount for your vacation is 6000Ks.";break;
+		case 2:cout<<"\n Money amount for your vacation is 5000Ks.";break;
+		case 3:cout<<"\n Money amount for your vacation is 10000Ks.";break;
+		case 4:cout<<"\n Money amount for your vacation is 16000Ks.";break;
+		case 5:cout<<"\n Money amount for your vacation is 14000Ks.";break;
+	}
+}
+
+void naypyitaw(){
+	cout<<"\nOur agency can serve these bus lines.";
+	cout<<"\n 1. From naypyitaw to yangon";
+	cout<<"\n 2. From naypyitaw to mandalay";
+	cout<<"\n 3. From naypyitaw to Bagan";
+	cout<<"\n 4. From naypyitaw to Ngwesaung";
+	cout<<"\n 5. From naypyitaw to Taunggyi";
+	cout<<"\n\nPlease choose your vacation:";
+	cin>>c;
+	switch(c){
+		case 1:cout<<"\n Money amount for your vacation is 8000Ks.";break;
+		case 2:cout<<"\n Money amount for your vacation is 6000Ks.";break;
+		case 3:cout<<"\n Money amount for your vacation is 10000Ks.";break;
+		case 4:cout<<"\n Money amount for your vacation is 14000Ks.";break;
+		case 5:cout<<"\n Money amount for your vacation is 12000Ks.";break;
+	}
+}
